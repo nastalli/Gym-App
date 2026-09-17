@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const AICoachChat = ({ chatOpen, setChatOpen, todayGroups, geminiApiKey }) => {
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+const AICoachChat = ({ chatOpen, setChatOpen, todayGroups }) => {
   const { t, i18n } = useTranslation();
   const [chatMessages, setChatMessages] = useState([{ role: 'model', text: t('coach_hello') }]);
   const [chatInput, setChatInput] = useState('');
@@ -9,7 +11,7 @@ const AICoachChat = ({ chatOpen, setChatOpen, todayGroups, geminiApiKey }) => {
 
   const handleSendChat = async () => {
     if (!chatInput.trim()) return;
-    if (!geminiApiKey) {
+    if (!GEMINI_API_KEY) {
       alert(t('coach_api_key'));
       return;
     }
@@ -29,7 +31,7 @@ Reply quickly and motivatingly (1 or 2 short paragraphs).`;
 
       const prompt = i18n.language === 'en' ? promptEn : promptPt;
 
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${geminiApiKey}`, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })

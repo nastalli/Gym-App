@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { useAppContext } from '../../context/AppContext';
+import { useTranslation } from 'react-i18next';
+
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const ExerciseCard = ({
   ex,
@@ -15,7 +17,7 @@ const ExerciseCard = ({
   setInfoModal,
   t
 }) => {
-  const { geminiApiKey } = useAppContext();
+  const { i18n } = useTranslation();
   const [isSwapping, setIsSwapping] = useState(false);
   const [swapOptions, setSwapOptions] = useState([]);
   const [showPlateCalc, setShowPlateCalc] = useState(false);
@@ -41,7 +43,7 @@ const ExerciseCard = ({
   };
 
   const handleAiSwap = async () => {
-    if (!geminiApiKey) {
+    if (!GEMINI_API_KEY) {
       alert(t('api_key_required_swap'));
       return;
     }
@@ -52,7 +54,7 @@ const ExerciseCard = ({
       const promptEn = `I'm at the gym and the equipment for "${ex.name}" is taken. Suggest 2 practical substitute exercises that work the same muscle groups. Reply only with the exercise names, one per line, no numbering or extra text.`;
       const prompt = i18n.language === 'en' ? promptEn : promptPt;
       
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${geminiApiKey}`, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })

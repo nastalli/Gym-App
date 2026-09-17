@@ -15,8 +15,7 @@ const Workout = () => {
   const { 
     user, dailySplits, exercisesByGroup, workoutData, 
     defaultRestTime, streakData, savedWorkouts, saveSettings,
-    timerSeconds, setTimerSeconds, timerActive, setTimerActive,
-    geminiApiKey
+    timerSeconds, setTimerSeconds, timerActive, setTimerActive
   } = useAppContext();
   
   const [currentDay, setCurrentDay] = useState('');
@@ -430,7 +429,6 @@ const Workout = () => {
         chatOpen={chatOpen} 
         setChatOpen={setChatOpen} 
         todayGroups={todayGroups} 
-        geminiApiKey={geminiApiKey} 
       />
     </div>
   );

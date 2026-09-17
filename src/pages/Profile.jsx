@@ -32,11 +32,10 @@ const Profile = () => {
   const { 
     user, muscleGroups, exercisesByGroup, dailySplits, 
     measurements, weightHistory, measurementHistory, workoutData, defaultRestTime, 
-    streakData, unitSystem, accentColor, geminiApiKey, saveSettings 
+    streakData, unitSystem, accentColor, saveSettings 
   } = useAppContext();
 
   // Local state for forms
-  const [localApiKey, setLocalApiKey] = useState(geminiApiKey || '');
   const [newGroupName, setNewGroupName] = useState('');
   const [newExGroup, setNewExGroup] = useState(muscleGroups[0] || '');
   const [newExName, setNewExName] = useState('');
@@ -336,7 +335,8 @@ const Profile = () => {
   };
 
   const handleGenerateAIWorkout = async () => {
-    if (!geminiApiKey) {
+    const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!GEMINI_API_KEY) {
       alert(t('api_key_required'));
       return;
     }
@@ -391,7 +391,7 @@ const Profile = () => {
       }
       Lembre-se: os dias da semana em dailySplits DEVEM estar em inglês conforme o exemplo.`;
 
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
@@ -821,30 +821,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="glass-panel" style={{ marginTop: '20px' }}>
-        <h3 style={{ marginBottom: '16px', color: 'var(--primary-color)' }}>🤖 Inteligência Artificial (Gemini)</h3>
-        <label className="text-muted" style={{ fontSize: '14px', display: 'block', marginBottom: '12px' }}>
-          Insira sua chave de API do Google Gemini para usar o Gerador de Receitas Inteligente. (A chave fica salva apenas no seu dispositivo).<br/>
-          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'underline', marginTop: '5px', display: 'inline-block' }}>
-            Clique aqui para pegar sua chave API
-          </a>
-        </label>
-        <div className="flex-row">
-          <input 
-            type="password" 
-            placeholder="AIzaSy..."
-            value={localApiKey} 
-            onChange={(e) => setLocalApiKey(e.target.value)}
-            style={{ marginBottom: 0, fontFamily: 'monospace' }}
-          />
-          <button 
-            onClick={() => { saveSettings({ geminiApiKey: localApiKey.trim() }); alert('Chave de API salva!'); }} 
-            style={{ width: 'auto', marginBottom: 0 }}
-          >
-            Salvar
-          </button>
-        </div>
-      </div>
+
 
         {deferredPrompt && (
           <button onClick={handleInstallClick} style={{ marginTop: '15px', background: 'var(--primary-color)', color: '#000', fontWeight: 'bold' }}>

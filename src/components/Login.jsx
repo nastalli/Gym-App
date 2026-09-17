@@ -2,6 +2,7 @@ import React from 'react';
 import { auth, googleProvider } from '../firebase/config';
 import { signInWithPopup } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
+import styles from './Login.module.css';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -15,23 +16,12 @@ const Login = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h2 style={{ fontSize: '32px', marginBottom: '10px' }}>Gym Tracker</h2>
-      <p style={{ color: 'var(--text-muted)', marginBottom: '40px' }}>{t('login_tagline')}</p>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Gym Tracker</h2>
+      <p className={styles.tagline}>{t('login_tagline')}</p>
       
-      <button 
-        onClick={handleLogin}
-        style={{
-          background: 'white',
-          color: 'black',
-          padding: '16px 24px',
-          borderRadius: '50px',
-          fontWeight: 'bold',
-          fontSize: '18px',
-          boxShadow: '0 4px 15px rgba(255,255,255,0.2)'
-        }}
-      >
-        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+      <button onClick={handleLogin} className={styles.googleButton}>
+        <span className={styles.buttonContent}>
           <svg width="24" height="24" viewBox="0 0 24 24">
             <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />

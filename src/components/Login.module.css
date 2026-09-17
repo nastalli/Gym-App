@@ -1,0 +1,43 @@
+.container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.googleButton {
+  background: white;
+  color: black;
+  padding: 16px 24px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.googleButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.googleButton:active {
+  transform: translateY(0);
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

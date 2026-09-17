@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from './context/AppContext';
+import { hexToRgba } from './utils/colorUtils';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Login from './components/Login';
@@ -32,13 +33,6 @@ function App() {
 
   useEffect(() => {
     const themeColor = accentColor || '#00ff88';
-    
-    const hexToRgba = (hex, alpha) => {
-      const r = parseInt(hex.slice(1, 3), 16) || 0;
-      const g = parseInt(hex.slice(3, 5), 16) || 255;
-      const b = parseInt(hex.slice(5, 7), 16) || 136;
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    };
 
     document.documentElement.style.setProperty('--primary-color', themeColor);
     document.documentElement.style.setProperty('--primary-glow', hexToRgba(themeColor, 0.5));

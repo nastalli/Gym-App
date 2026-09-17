@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 const Diet = () => {
   const { t } = useTranslation();
-  const { measurements, diet, dailyChecklist, saveSettings, geminiApiKey } = useAppContext();
+  const { measurements, diet, dailyChecklist, saveSettings } = useAppContext();
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
   
   const [localDiet, setLocalDiet] = useState(diet);
   
@@ -161,7 +162,7 @@ const Diet = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generateRecipe = async () => {
-    if (!geminiApiKey) {
+    if (!GEMINI_API_KEY) {
       alert(t('api_key_required_recipe'));
       return;
     }
@@ -196,7 +197,7 @@ const Diet = () => {
         }
       }`;
 
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${geminiApiKey}`, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

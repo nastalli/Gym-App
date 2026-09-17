@@ -10,7 +10,7 @@ export const useAppContext = () => useContext(AppContext);
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   // App State
   const [measurements, setMeasurements] = useState({ age: '', weight: '', height: '', arms: '', chest: '', waist: '', thighs: '' });
   const [weightHistory, setWeightHistory] = useState([]);
@@ -34,7 +34,7 @@ export const AppProvider = ({ children }) => {
     "Saturday": [],
     "Sunday": []
   });
-  
+
   const [diet, setDiet] = useState({
     goal: 'gain',
     gender: 'M',
@@ -52,7 +52,7 @@ export const AppProvider = ({ children }) => {
     streak: 0,
     lastWorkoutDate: null
   });
-  
+
   const [dailyChecklist, setDailyChecklist] = useState({
     date: null,
     water: 0,
@@ -60,8 +60,8 @@ export const AppProvider = ({ children }) => {
   });
 
   const [accentColor, setAccentColor] = useState('#00ff88');
-  const [geminiApiKey, setGeminiApiKey] = useState('');
-  
+
+
   const [workoutData, setWorkoutData] = useState([]);
 
   // Global Timer State
@@ -73,19 +73,19 @@ export const AppProvider = ({ children }) => {
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
-      
+
       oscillator.type = 'sine';
       oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // 880Hz (A5)
-      
+
       gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-      
+
       oscillator.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
+
       oscillator.start();
       oscillator.stop(audioCtx.currentTime + 0.5);
-    } catch(e) {
+    } catch (e) {
       console.log('Audio Context error:', e);
     }
   };
@@ -119,9 +119,9 @@ export const AppProvider = ({ children }) => {
           if (data.muscleGroups) setMuscleGroups(data.muscleGroups);
           if (data.exercisesByGroup) setExercisesByGroup(data.exercisesByGroup);
           if (data.dailySplits) setDailySplits(data.dailySplits);
-          if (data.measurements) setMeasurements({ 
-            age: data.measurements.age || '', 
-            weight: data.measurements.weight || '', 
+          if (data.measurements) setMeasurements({
+            age: data.measurements.age || '',
+            weight: data.measurements.weight || '',
             height: data.measurements.height || '',
             arms: data.measurements.arms || '',
             chest: data.measurements.chest || '',
@@ -135,41 +135,41 @@ export const AppProvider = ({ children }) => {
           if (data.unitSystem) setUnitSystem(data.unitSystem);
           if (data.savedWorkouts) setSavedWorkouts(data.savedWorkouts);
           if (data.accentColor) setAccentColor(data.accentColor);
-          if (data.geminiApiKey) setGeminiApiKey(data.geminiApiKey);
-          
+
+
           if (data.dailyChecklist) {
             const todayStr = new Date().toLocaleDateString('en-CA');
             if (data.dailyChecklist.date !== todayStr) {
-               // Reset checklist for new day
-               setDailyChecklist({ date: todayStr, water: 0, meals: false });
+              // Reset checklist for new day
+              setDailyChecklist({ date: todayStr, water: 0, meals: false });
             } else {
-               setDailyChecklist(data.dailyChecklist);
+              setDailyChecklist(data.dailyChecklist);
             }
           } else {
             setDailyChecklist({ date: new Date().toLocaleDateString('en-CA'), water: 0, meals: false });
           }
-          
+
           if (data.streakData) {
-             const checkedStreak = checkStreak(data.streakData.streak, data.streakData.lastWorkoutDate, data.dailySplits || dailySplits);
-             setStreakData(checkedStreak);
-             if (checkedStreak.streak !== data.streakData.streak) {
-                 // Update firebase if streak was broken
-                 setDoc(doc(db, 'users', currentUser.uid, 'settings', 'profile'), { streakData: checkedStreak }, { merge: true });
-             }
+            const checkedStreak = checkStreak(data.streakData.streak, data.streakData.lastWorkoutDate, data.dailySplits || dailySplits);
+            setStreakData(checkedStreak);
+            if (checkedStreak.streak !== data.streakData.streak) {
+              // Update firebase if streak was broken
+              setDoc(doc(db, 'users', currentUser.uid, 'settings', 'profile'), { streakData: checkedStreak }, { merge: true });
+            }
           }
         }
-        
+
         // Listen to Sets (limited for performance)
         const q = query(collection(db, 'users', currentUser.uid, 'sets'), orderBy('timestamp', 'desc'), limit(500));
         unsubSets = onSnapshot(q, (snapshot) => {
-            let dataArr = [];
-            snapshot.forEach(docSnap => {
-                let data = docSnap.data();
-                dataArr.push({ dbId: docSnap.id, id: data.timestamp, ...data });
-            });
-            setWorkoutData(dataArr);
+          let dataArr = [];
+          snapshot.forEach(docSnap => {
+            let data = docSnap.data();
+            dataArr.push({ dbId: docSnap.id, id: data.timestamp, ...data });
+          });
+          setWorkoutData(dataArr);
         });
-        
+
         setLoading(false);
       } else {
         setLoading(false);
@@ -184,19 +184,19 @@ export const AppProvider = ({ children }) => {
 
   const checkStreak = (currentStreak, lastDateStr, splits) => {
     if (!lastDateStr || currentStreak === 0) return { streak: 0, lastWorkoutDate: null };
-    
+
     const todayStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
     if (lastDateStr === todayStr) return { streak: currentStreak, lastWorkoutDate: lastDateStr };
 
     const daysEN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    
+
     let lastDate = new Date(lastDateStr + 'T00:00:00');
     let todayDate = new Date(todayStr + 'T00:00:00');
-    
+
     let isBroken = false;
     let currentDate = new Date(lastDate);
     currentDate.setDate(currentDate.getDate() + 1);
-    
+
     while (currentDate < todayDate) {
       const dayName = daysEN[currentDate.getDay()];
       const daySplit = splits[dayName] || [];
@@ -207,17 +207,17 @@ export const AppProvider = ({ children }) => {
       }
       currentDate.setDate(currentDate.getDate() + 1);
     }
-    
+
     if (isBroken) {
       return { streak: 0, lastWorkoutDate: null };
     }
-    
+
     return { streak: currentStreak, lastWorkoutDate: lastDateStr };
   };
 
   const saveSettings = async (newState) => {
     if (!user) return;
-    
+
     // Merge new state with current state for saving
     const toSave = {
       muscleGroups: newState.muscleGroups || muscleGroups,
@@ -232,9 +232,9 @@ export const AppProvider = ({ children }) => {
       streakData: newState.streakData || streakData,
       dailyChecklist: newState.dailyChecklist || dailyChecklist,
       accentColor: newState.accentColor || accentColor,
-      geminiApiKey: newState.geminiApiKey !== undefined ? newState.geminiApiKey : geminiApiKey
+
     };
-    
+
     // Update local state proactively
     if (newState.muscleGroups) setMuscleGroups(newState.muscleGroups);
     if (newState.exercisesByGroup) setExercisesByGroup(newState.exercisesByGroup);
@@ -248,7 +248,7 @@ export const AppProvider = ({ children }) => {
     if (newState.streakData) setStreakData(newState.streakData);
     if (newState.dailyChecklist) setDailyChecklist(newState.dailyChecklist);
     if (newState.accentColor) setAccentColor(newState.accentColor);
-    if (newState.geminiApiKey !== undefined) setGeminiApiKey(newState.geminiApiKey);
+
 
     await setDoc(doc(db, 'users', user.uid, 'settings', 'profile'), toSave, { merge: true });
   };
@@ -259,12 +259,12 @@ export const AppProvider = ({ children }) => {
     measurements,
     weightHistory,
     measurementHistory,
-    muscleGroups, exercisesByGroup, dailySplits, 
+    muscleGroups, exercisesByGroup, dailySplits,
     diet,
     unitSystem, savedWorkouts,
     workoutData, defaultRestTime,
     streakData, dailyChecklist,
-    accentColor, geminiApiKey,
+    accentColor,
     timerSeconds, setTimerSeconds,
     timerActive, setTimerActive,
     saveSettings

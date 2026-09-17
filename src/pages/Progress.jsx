@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { hexToRgba } from '../utils/colorUtils';
 import { useTranslation } from 'react-i18next';
 import {
   Chart as ChartJS,
@@ -49,16 +50,13 @@ const chartOptions = {
   }
 };
 
-const hexToRgba = (hex, alpha) => {
-  const r = parseInt(hex.slice(1, 3), 16) || 0;
-  const g = parseInt(hex.slice(3, 5), 16) || 255;
-  const b = parseInt(hex.slice(5, 7), 16) || 136;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
+
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
 
 const Progress = () => {
   const { t } = useTranslation();
-  const { workoutData, weightHistory, measurementHistory, accentColor, geminiApiKey, dailyChecklist } = useAppContext();
+  const { workoutData, weightHistory, measurementHistory, accentColor, dailyChecklist } = useAppContext();
   const themeColor = accentColor || '#00ff88';
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -266,7 +264,7 @@ const Progress = () => {
   }, [workoutData, themeColor]);
 
   const handleAiAnalysis = async () => {
-    if (!geminiApiKey) {
+    if (!GEMINI_API_KEY) {
       alert(t('api_key_missing'));
       return;
     }
@@ -275,7 +273,7 @@ const Progress = () => {
       const promptLanguage = i18n.language.startsWith('en') ? 'English' : 'Português';
       const prompt = `Você é um treinador de fisiculturismo de elite. Analise os seguintes dados e forneça 2 ou 3 parágrafos curtos com insights de elite (ex: o que melhorou, onde está a estagnação, se o volume de uma área está baixo, se a dieta parece alinhada com o ganho de força). Seja direto, encorajador e tático. Use emojis. RESPONDA EM: ${promptLanguage}\n\nPeso corporal histórico: ${JSON.stringify(weightHistory.slice(-10))}\nMedidas (braço, peito, cintura, coxas): ${JSON.stringify(measurementHistory?.slice(-5) || [])}\nÚltimos 20 treinos (exercício, peso, reps, rpe): ${JSON.stringify(workoutData.slice(-20).map(w => ({ex: w.exercise, w: w.weight, r: w.reps, rpe: w.rpe})))}\nRotina Atual (Checklist diário de água/calorias): ${JSON.stringify(dailyChecklist)}`;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
