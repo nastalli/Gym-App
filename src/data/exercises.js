@@ -1,0 +1,22 @@
+export const EXERCISE_LIBRARY = {
+  "Supino Reto": { primary: "Peitoral", secondary: "Tríceps, Deltoide Anterior", tip: "Mantenha as escápulas retraídas e os pés firmes no chão." },
+  "Supino Inclinado": { primary: "Peitoral Superior", secondary: "Tríceps, Deltoide Anterior", tip: "Ajuste o banco entre 30 e 45 graus." },
+  "Agachamento Livre": { primary: "Quadríceps, Glúteos", secondary: "Posterior de Coxa, Core", tip: "Desça quebrando a paralela, peito aberto." },
+  "Agachamento": { primary: "Quadríceps, Glúteos", secondary: "Posterior de Coxa, Core", tip: "Mantenha a postura reta e o peso nos calcanhares." },
+  "Desenvolvimento": { primary: "Ombros (Deltoide)", secondary: "Tríceps", tip: "Não estenda completamente os cotovelos no topo." },
+  "Puxada Frente": { primary: "Dorsais (Costas)", secondary: "Bíceps", tip: "Puxe a barra em direção ao peito, não atrás da nuca." },
+  "Puxada Alta": { primary: "Dorsais (Costas)", secondary: "Bíceps", tip: "Puxe em direção ao osso do peito, focando nas escápulas." },
+  "Remada Curvada": { primary: "Costas", secondary: "Bíceps, Lombar", tip: "Tronco inclinado, coluna reta, puxe na linha do umbigo." },
+  "Remada": { primary: "Costas", secondary: "Bíceps", tip: "Foque em espremer as costas e não apenas puxar com os braços." },
+  "Rosca Direta": { primary: "Bíceps", secondary: "Antebraços", tip: "Mantenha os cotovelos imóveis ao lado do corpo." },
+  "Tríceps Polia": { primary: "Tríceps", secondary: "Ombros (estabilização)", tip: "Faça o movimento controlado focando na extensão total." },
+  "Tríceps Testa": { primary: "Tríceps", secondary: "Nenhum", tip: "Mantenha os cotovelos apontados pro teto." },
+  "Encolhimento": { primary: "Trapézio", secondary: "Nenhum", tip: "Faça uma pausa de 1 segundo no pico da contração." },
+  "Leg Press": { primary: "Quadríceps", secondary: "Glúteos", tip: "Não estenda os joelhos até travar para evitar lesão." },
+  "Stiff": { primary: "Posterior de Coxa", secondary: "Glúteos, Lombar", tip: "Mantenha o joelho levemente flexionado, movimento no quadril." },
+  "Cadeira Extensora": { primary: "Quadríceps", secondary: "Nenhum", tip: "Segure o pico de contração por 1 segundo." },
+  "Mesa Flexora": { primary: "Posterior de Coxa", secondary: "Panturrilhas", tip: "Não levante o quadril do banco durante o movimento." },
+  "Panturrilha": { primary: "Panturrilhas", secondary: "Nenhum", tip: "Aproveite a amplitude máxima no alongamento." },
+  "Prancha": { primary: "Core", secondary: "Ombros", tip: "Mantenha o corpo em linha reta e os glúteos contraídos." },
+  "Abdominal Infra": { primary: "Abdômen Inferior", secondary: "Flexores de quadril", tip: "Controle a descida das pernas." }
+};
