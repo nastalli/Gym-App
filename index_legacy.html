@@ -29,12 +29,15 @@
             box-sizing: border-box;
         }
 
-        h2, h3 {
+        h2,
+        h3 {
             font-weight: 700;
             color: var(--text-color);
         }
 
-        input, select, button {
+        input,
+        select,
+        button {
             display: block;
             width: 100%;
             margin-bottom: 15px;
@@ -49,7 +52,8 @@
             transition: all 0.2s ease;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
@@ -76,7 +80,7 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .delete-btn {
@@ -136,8 +140,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Override inline styles for routine chips */
@@ -152,6 +163,7 @@
             margin-bottom: 6px !important;
             font-weight: 600 !important;
         }
+
         #routineChips button:hover {
             border-color: var(--primary-color) !important;
         }
@@ -170,7 +182,8 @@
     <div id="authContainer" style="text-align: center; margin-top: 100px; display: none;">
         <h2>Gym Tracker</h2>
         <p style="color: var(--text-muted); margin-bottom: 30px;">Log in to sync your workouts.</p>
-        <button id="loginBtn" style="background-color: white; color: black; font-weight: bold;">Sign in with Google</button>
+        <button id="loginBtn" style="background-color: white; color: black; font-weight: bold;">Sign in with
+            Google</button>
     </div>
 
     <div id="appContainer" style="display: none;">
@@ -180,97 +193,124 @@
 
         <div class="tabs">
             <div class="tab active" onclick="switchTab('logTab', this)">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 14.5-5-5"/><path d="M6.5 6.5 5 5"/><path d="M19 19l-1.5-1.5"/><path d="m16.5 21.5-5.5-5.5"/><path d="m21.5 16.5-5.5-5.5"/><path d="m7.5 2.5-5.5 5.5"/><path d="m2.5 7.5 5.5 5.5"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m14.5 14.5-5-5" />
+                    <path d="M6.5 6.5 5 5" />
+                    <path d="M19 19l-1.5-1.5" />
+                    <path d="m16.5 21.5-5.5-5.5" />
+                    <path d="m21.5 16.5-5.5-5.5" />
+                    <path d="m7.5 2.5-5.5 5.5" />
+                    <path d="m2.5 7.5 5.5 5.5" />
+                </svg>
                 Treino
             </div>
             <div class="tab" onclick="switchTab('progressTab', this); renderProgressChart()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v18h18" />
+                    <path d="m19 9-5 5-4-4-3 3" />
+                </svg>
                 Progresso
             </div>
             <div class="tab" onclick="switchTab('profileTab', this)">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
                 Perfil
             </div>
         </div>
 
-    <div id="logTab" class="tab-content active">
-        <div id="workoutHeader" style="margin-bottom: 20px; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
-            <h2 id="currentDayName" style="margin-bottom: 5px; color: var(--primary-color);">Carregando...</h2>
-            <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 14px;">
-                <span id="currentDateString">--/--/----</span>
-                <span id="currentTimeString">--:--</span>
+        <div id="logTab" class="tab-content active">
+            <div id="workoutHeader"
+                style="margin-bottom: 20px; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+                <h2 id="currentDayName" style="margin-bottom: 5px; color: var(--primary-color);">Carregando...</h2>
+                <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 14px;">
+                    <span id="currentDateString">--/--/----</span>
+                    <span id="currentTimeString">--:--</span>
+                </div>
+            </div>
+
+            <div id="workoutStartContainer" style="text-align: center; margin-top: 50px;">
+                <p id="todayRoutineText" style="margin-bottom: 30px; font-size: 18px; color: var(--text-muted);">
+                    Calculando treino de hoje...</p>
+                <button onclick="startWorkout()"
+                    style="padding: 20px; font-size: 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,255,136,0.3);">Iniciar
+                    Treino</button>
+            </div>
+
+            <div id="workoutInProgressContainer" style="display: none;">
+                <div id="workoutExercisesList"></div>
+                <button onclick="finishWorkout()"
+                    style="margin-top: 30px; padding: 18px; background-color: var(--primary-color); color: black; font-size: 16px;">Finalizar
+                    Treino</button>
             </div>
         </div>
 
-        <div id="workoutStartContainer" style="text-align: center; margin-top: 50px;">
-            <p id="todayRoutineText" style="margin-bottom: 30px; font-size: 18px; color: var(--text-muted);">Calculando treino de hoje...</p>
-            <button onclick="startWorkout()" style="padding: 20px; font-size: 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,255,136,0.3);">Iniciar Treino</button>
+        <div id="progressTab" class="tab-content">
+            <h3 style="margin-top: 0;">Evolução de Cargas</h3>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <select id="progressExercise" onchange="renderProgressChart()" style="flex-grow: 1; margin-bottom: 0;">
+                </select>
+                <select id="progressRange" onchange="renderProgressChart()" style="width: auto; margin-bottom: 0;">
+                    <option value="all">Todo Histórico</option>
+                    <option value="7">7 dias</option>
+                    <option value="30">30 dias</option>
+                    <option value="90">3 meses</option>
+                    <option value="365">1 ano</option>
+                </select>
+            </div>
+            <canvas id="progressChart"></canvas>
+
+            <h3 style="margin-top: 40px;">Evolução Corporal (Peso)</h3>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <select id="weightProgressRange" onchange="renderWeightChart()" style="width: 100%; margin-bottom: 0;">
+                    <option value="all">Todo Histórico</option>
+                    <option value="30">30 dias</option>
+                    <option value="90">3 meses</option>
+                    <option value="365">1 ano</option>
+                </select>
+            </div>
+            <canvas id="weightChart"></canvas>
         </div>
 
-        <div id="workoutInProgressContainer" style="display: none;">
-            <div id="workoutExercisesList"></div>
-            <button onclick="finishWorkout()" style="margin-top: 30px; padding: 18px; background-color: var(--primary-color); color: black; font-size: 16px;">Finalizar Treino</button>
+        <div id="profileTab" class="tab-content">
+            <h3>Cronograma de Treino</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">Defina o que você treina em cada dia.</p>
+            <div id="muscleGroupsContainer"></div>
+
+            <h3>Grupos Musculares</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">Gerencie seus grupos musculares.</p>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <input type="text" id="newMuscleGroupName" placeholder="Novo Grupo Muscular"
+                    style="margin-bottom: 0; flex-grow: 2;">
+                <button onclick="addMuscleGroup()" style="margin-bottom: 0; width: auto;">+</button>
+            </div>
+            <div id="muscleGroupsListContainer" style="margin-bottom: 20px;"></div>
+
+            <h3>Exercícios</h3>
+            <p style="color: var(--text-muted); font-size: 14px;">Gerencie seus exercícios por grupo muscular.</p>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <select id="newExerciseMuscleGroup" style="margin-bottom: 0; flex-grow: 1;"></select>
+                <input type="text" id="newExerciseName" placeholder="Nome do Exercício"
+                    style="margin-bottom: 0; flex-grow: 2;">
+                <button onclick="addNewCustomExercise()" style="margin-bottom: 0; width: auto;">+</button>
+            </div>
+            <div id="exercisesListContainer"></div>
+
+            <h3>Medidas Corporais</h3>
+            <input type="number" id="measureAge" placeholder="Idade (anos)">
+            <input type="number" id="measureWeight" placeholder="Peso (kg)">
+            <input type="number" id="measureHeight" placeholder="Altura (cm)">
+            <button onclick="saveMeasurements()">Salvar Medidas</button>
+
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 30px 0;">
+            <button onclick="logout()"
+                style="background: transparent; border: 1px solid var(--danger-color); color: var(--danger-color);">Sair
+                (Logout)</button>
         </div>
-    </div>
-
-    <div id="progressTab" class="tab-content">
-        <h3 style="margin-top: 0;">Evolução de Cargas</h3>
-        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-            <select id="progressExercise" onchange="renderProgressChart()" style="flex-grow: 1; margin-bottom: 0;">
-            </select>
-            <select id="progressRange" onchange="renderProgressChart()" style="width: auto; margin-bottom: 0;">
-                <option value="all">Todo Histórico</option>
-                <option value="7">7 dias</option>
-                <option value="30">30 dias</option>
-                <option value="90">3 meses</option>
-                <option value="365">1 ano</option>
-            </select>
-        </div>
-        <canvas id="progressChart"></canvas>
-
-        <h3 style="margin-top: 40px;">Evolução Corporal (Peso)</h3>
-        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-            <select id="weightProgressRange" onchange="renderWeightChart()" style="width: 100%; margin-bottom: 0;">
-                <option value="all">Todo Histórico</option>
-                <option value="30">30 dias</option>
-                <option value="90">3 meses</option>
-                <option value="365">1 ano</option>
-            </select>
-        </div>
-        <canvas id="weightChart"></canvas>
-    </div>
-
-    <div id="profileTab" class="tab-content">
-        <h3>Cronograma de Treino</h3>
-        <p style="color: var(--text-muted); font-size: 14px;">Defina o que você treina em cada dia.</p>
-        <div id="muscleGroupsContainer"></div>
-
-        <h3>Grupos Musculares</h3>
-        <p style="color: var(--text-muted); font-size: 14px;">Gerencie seus grupos musculares.</p>
-        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-            <input type="text" id="newMuscleGroupName" placeholder="Novo Grupo Muscular" style="margin-bottom: 0; flex-grow: 2;">
-            <button onclick="addMuscleGroup()" style="margin-bottom: 0; width: auto;">+</button>
-        </div>
-        <div id="muscleGroupsListContainer" style="margin-bottom: 20px;"></div>
-
-        <h3>Exercícios</h3>
-        <p style="color: var(--text-muted); font-size: 14px;">Gerencie seus exercícios por grupo muscular.</p>
-        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-            <select id="newExerciseMuscleGroup" style="margin-bottom: 0; flex-grow: 1;"></select>
-            <input type="text" id="newExerciseName" placeholder="Nome do Exercício" style="margin-bottom: 0; flex-grow: 2;">
-            <button onclick="addNewCustomExercise()" style="margin-bottom: 0; width: auto;">+</button>
-        </div>
-        <div id="exercisesListContainer"></div>
-
-        <h3>Medidas Corporais</h3>
-        <input type="number" id="measureAge" placeholder="Idade (anos)">
-        <input type="number" id="measureWeight" placeholder="Peso (kg)">
-        <input type="number" id="measureHeight" placeholder="Altura (cm)">
-        <button onclick="saveMeasurements()">Salvar Medidas</button>
-
-        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 30px 0;">
-        <button onclick="logout()" style="background: transparent; border: 1px solid var(--danger-color); color: var(--danger-color);">Sair (Logout)</button>
-    </div>
     </div> <!-- end appContainer -->
 
     <script type="module">
@@ -279,7 +319,7 @@
         import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyDkLH1XQU9nlmq2Y8n7QIMACcrZkrAaVS0",
+            apiKey: "import.meta.env.VITE_FIREBASE_API_KEY",
             authDomain: "gym-app-a7da4.firebaseapp.com",
             projectId: "gym-app-a7da4",
             storageBucket: "gym-app-a7da4.firebasestorage.app",
@@ -315,7 +355,7 @@
         };
 
         async function saveSettings() {
-            if(!currentUser) return;
+            if (!currentUser) return;
             await setDoc(doc(db, 'users', currentUser.uid, 'settings', 'profile'), { muscleGroups, exercisesByGroup, dailySplits, measurements, weightHistory });
         }
 
@@ -324,7 +364,7 @@
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             days.forEach(day => {
                 html += `<div style="margin-bottom: 8px; display:flex; align-items:center;">
-                            <span style="width:100px; font-size:14px; font-weight:600;">${day.substring(0,3)}</span>
+                            <span style="width:100px; font-size:14px; font-weight:600;">${day.substring(0, 3)}</span>
                             <input type="text" id="split_${day}" value="${(dailySplits[day] || []).join(', ')}" placeholder="Ex: Peito, Tríceps" style="margin-bottom:0; flex-grow:1; padding:8px;">
                          </div>`;
             });
@@ -357,8 +397,8 @@
 
         function addMuscleGroup() {
             const name = document.getElementById('newMuscleGroupName').value.trim();
-            if(!name) return;
-            if(!muscleGroups.includes(name)) {
+            if (!name) return;
+            if (!muscleGroups.includes(name)) {
                 muscleGroups.push(name);
                 saveSettings();
                 document.getElementById('newMuscleGroupName').value = '';
@@ -368,7 +408,7 @@
         }
 
         function removeMuscleGroup(g) {
-            if(confirm(`Remover grupo muscular '${g}'?`)) {
+            if (confirm(`Remover grupo muscular '${g}'?`)) {
                 muscleGroups = muscleGroups.filter(m => m !== g);
                 delete exercisesByGroup[g];
                 saveSettings();
@@ -387,7 +427,7 @@
             let html = '';
             muscleGroups.forEach(g => {
                 let exs = exercisesByGroup[g] || [];
-                if(exs.length > 0) {
+                if (exs.length > 0) {
                     html += `<div style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
                                 <strong style="font-size:14px; color:var(--primary-color);">${g}</strong><br>
                                 <div style="margin-top: 5px; display: flex; flex-direction: column; gap: 5px;">`;
@@ -405,7 +445,7 @@
         }
 
         function removeExercise(g, ex) {
-            if(confirm(`Remover exercício '${ex}'?`)) {
+            if (confirm(`Remover exercício '${ex}'?`)) {
                 exercisesByGroup[g] = exercisesByGroup[g].filter(e => e !== ex);
                 saveSettings();
                 renderProfileExercises();
@@ -415,9 +455,9 @@
         function addNewCustomExercise() {
             const g = document.getElementById('newExerciseMuscleGroup').value;
             const name = document.getElementById('newExerciseName').value.trim();
-            if(!g || !name) return;
-            if(!exercisesByGroup[g]) exercisesByGroup[g] = [];
-            if(!exercisesByGroup[g].includes(name)) {
+            if (!g || !name) return;
+            if (!exercisesByGroup[g]) exercisesByGroup[g] = [];
+            if (!exercisesByGroup[g].includes(name)) {
                 exercisesByGroup[g].push(name);
                 saveSettings();
                 document.getElementById('newExerciseName').value = '';
@@ -436,34 +476,34 @@
             const newWeight = document.getElementById('measureWeight').value;
             measurements.weight = newWeight;
             measurements.height = document.getElementById('measureHeight').value;
-            
+
             if (newWeight) {
                 weightHistory.push({ timestamp: Date.now(), weight: Number(newWeight) });
             }
             saveSettings();
-            
-            if(document.getElementById('progressTab').classList.contains('active')) {
+
+            if (document.getElementById('progressTab').classList.contains('active')) {
                 renderWeightChart();
             }
             alert("Medidas salvas!");
         }
 
         let workoutActive = false;
-        
+
         function updateClock() {
             const now = new Date();
             const daysPT = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
             const daysEN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const dayIndex = now.getDay();
-            
+
             document.getElementById('currentDayName').innerText = daysPT[dayIndex];
             document.getElementById('currentDateString').innerText = now.toLocaleDateString('pt-BR');
-            document.getElementById('currentTimeString').innerText = now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-            
-            if(!workoutActive && currentUser) {
+            document.getElementById('currentTimeString').innerText = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            if (!workoutActive && currentUser) {
                 const dayEN = daysEN[dayIndex];
                 const groups = dailySplits[dayEN] || [];
-                if(groups.length > 0) {
+                if (groups.length > 0) {
                     document.getElementById('todayRoutineText').innerHTML = `Treino de hoje:<br><strong style="color:var(--primary-color); font-size: 22px;">${groups.join(' & ')}</strong>`;
                 } else {
                     document.getElementById('todayRoutineText').innerHTML = `Treino de hoje:<br><strong style="font-size: 22px;">Descanso 💤</strong>`;
@@ -476,19 +516,19 @@
             workoutActive = true;
             document.getElementById('workoutStartContainer').style.display = 'none';
             document.getElementById('workoutInProgressContainer').style.display = 'block';
-            
+
             const now = new Date();
             const daysEN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const dayEN = daysEN[now.getDay()];
             const groups = dailySplits[dayEN] || [];
-            
+
             let allExs = [];
             groups.forEach(g => {
-                if(exercisesByGroup[g]) allExs = allExs.concat(exercisesByGroup[g]);
+                if (exercisesByGroup[g]) allExs = allExs.concat(exercisesByGroup[g]);
             });
-            
+
             let html = '';
-            if(allExs.length === 0) {
+            if (allExs.length === 0) {
                 html = '<p style="text-align:center; color:var(--text-muted);">Nenhum exercício cadastrado para os grupos de hoje. Vá na aba Perfil para adicionar!</p>';
             } else {
                 allExs.forEach((ex, idx) => {
@@ -506,47 +546,47 @@
         }
 
         async function finishWorkout() {
-            if(!currentUser) return alert("Você precisa estar logado!");
-            
+            if (!currentUser) return alert("Você precisa estar logado!");
+
             const now = new Date();
             const daysEN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const dayEN = daysEN[now.getDay()];
             const groups = dailySplits[dayEN] || [];
-            
+
             let allExs = [];
             groups.forEach(g => {
-                if(exercisesByGroup[g]) allExs = allExs.concat(exercisesByGroup[g]);
+                if (exercisesByGroup[g]) allExs = allExs.concat(exercisesByGroup[g]);
             });
-            
+
             let setsToSave = [];
             allExs.forEach((ex, idx) => {
                 const w = document.getElementById(`w_ex_${idx}`).value;
                 const r = document.getElementById(`r_ex_${idx}`).value;
-                if(w && r) {
+                if (w && r) {
                     setsToSave.push({ timestamp: Date.now(), day: dayEN, exercise: ex, weight: Number(w), reps: Number(r) });
                 }
             });
-            
-            if(setsToSave.length === 0) {
+
+            if (setsToSave.length === 0) {
                 alert("Preencha peso e reps de pelo menos um exercício para finalizar.");
                 return;
             }
-            
+
             const btn = document.querySelector('#workoutInProgressContainer button');
             const originalText = btn.innerText;
             btn.innerText = "Salvando...";
             btn.disabled = true;
-            
-            for(let setObj of setsToSave) {
+
+            for (let setObj of setsToSave) {
                 await addDoc(collection(db, 'users', currentUser.uid, 'sets'), setObj);
             }
-            
+
             alert("Treino salvo com sucesso! Bom descanso.");
             workoutActive = false;
             document.getElementById('workoutStartContainer').style.display = 'block';
             document.getElementById('workoutInProgressContainer').style.display = 'none';
             document.getElementById('workoutExercisesList').innerHTML = '';
-            
+
             btn.innerText = originalText;
             btn.disabled = false;
             updateClock();
@@ -563,16 +603,16 @@
             const select = document.getElementById('progressExercise');
             const currentVal = select.value;
             select.innerHTML = '';
-            
+
             // Build unique exercise list from history
             const exSet = new Set(workoutData.map(s => s.exercise));
             Array.from(exSet).sort().forEach(ex => {
                 select.innerHTML += `<option value="${ex}">${ex}</option>`;
             });
-            if(currentVal && exSet.has(currentVal)) select.value = currentVal;
-            
+            if (currentVal && exSet.has(currentVal)) select.value = currentVal;
+
             const selectedEx = select.value;
-            if(!selectedEx) {
+            if (!selectedEx) {
                 const ctx = document.getElementById('progressChart').getContext('2d');
                 ctx.clearRect(0, 0, 400, 400);
                 return;
@@ -580,19 +620,19 @@
 
             const rangeVal = document.getElementById('progressRange').value;
             let exData = workoutData.filter(s => s.exercise === selectedEx).sort((a, b) => a.id - b.id);
-            
-            if(rangeVal !== 'all') {
+
+            if (rangeVal !== 'all') {
                 const days = parseInt(rangeVal);
                 const cutoff = Date.now() - (days * 24 * 60 * 60 * 1000);
                 exData = exData.filter(s => s.id >= cutoff);
             }
-            
+
             const labels = exData.map(s => new Date(s.id).toLocaleDateString());
             const data = exData.map(s => s.weight);
-            
+
             const ctx = document.getElementById('progressChart').getContext('2d');
             if (window.chartInstance) window.chartInstance.destroy();
-            
+
             window.chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -616,19 +656,19 @@
         function renderWeightChart() {
             const rangeVal = document.getElementById('weightProgressRange').value;
             let whData = [...weightHistory].sort((a, b) => a.timestamp - b.timestamp);
-            
-            if(rangeVal !== 'all') {
+
+            if (rangeVal !== 'all') {
                 const days = parseInt(rangeVal);
                 const cutoff = Date.now() - (days * 24 * 60 * 60 * 1000);
                 whData = whData.filter(s => s.timestamp >= cutoff);
             }
-            
+
             const labels = whData.map(s => new Date(s.timestamp).toLocaleDateString());
             const data = whData.map(s => s.weight);
-            
+
             const ctx = document.getElementById('weightChart').getContext('2d');
             if (window.weightChartInstance) window.weightChartInstance.destroy();
-            
+
             window.weightChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -643,8 +683,8 @@
                 },
                 options: {
                     scales: {
-                        y: { 
-                            beginAtZero: false 
+                        y: {
+                            beginAtZero: false
                         }
                     }
                 }
@@ -656,7 +696,7 @@
                 currentUser = user;
                 document.getElementById('authContainer').style.display = 'none';
                 document.getElementById('appContainer').style.display = 'block';
-                
+
                 const settingsSnap = await getDoc(doc(db, 'users', currentUser.uid, 'settings', 'profile'));
                 if (settingsSnap.exists()) {
                     const data = settingsSnap.data();
@@ -666,20 +706,20 @@
                     if (data.measurements) measurements = data.measurements;
                     if (data.weightHistory) weightHistory = data.weightHistory;
                 }
-                
+
                 renderProfileGroups();
                 renderMuscleGroupsList();
                 renderProfileExercises();
                 renderMeasurements();
                 updateClock();
-                
+
                 onSnapshot(collection(db, 'users', currentUser.uid, 'sets'), (snapshot) => {
                     workoutData = [];
                     snapshot.forEach(docSnap => {
                         let data = docSnap.data();
                         workoutData.push({ dbId: docSnap.id, id: data.timestamp, ...data });
                     });
-                    if(document.getElementById('progressTab').classList.contains('active')) {
+                    if (document.getElementById('progressTab').classList.contains('active')) {
                         renderProgressChart();
                         renderWeightChart();
                     }
