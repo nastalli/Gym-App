@@ -14,7 +14,19 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = initializeFirestore(app, {
-  localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
-});
+
 export const googleProvider = new GoogleAuthProvider();
+
+googleProvider.addScope('profile');
+googleProvider.addScope('email');
+
+googleProvider.setCustomParameters({
+  prompt: 'consent',
+  'login_hint': ''
+});
+
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager()
+  })
+});
