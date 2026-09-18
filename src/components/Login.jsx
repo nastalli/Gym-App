@@ -1,17 +1,20 @@
 import React from 'react';
 import { auth, googleProvider } from '../firebase/config';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import styles from './Login.module.css';
 
 const Login = () => {
   const { t } = useTranslation();
+  const [errorMsg, setErrorMsg] = React.useState('');
+
   const handleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      setErrorMsg('');
+      await signInWithRedirect(auth, googleProvider);
     } catch (error) {
       console.error('Login error:', error);
-      alert(t('login_error'));
+      setErrorMsg(error.message || String(error));
     }
   };
 
@@ -19,6 +22,12 @@ const Login = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>Gym Tracker</h2>
       <p className={styles.tagline}>{t('login_tagline')}</p>
+      
+      {errorMsg && (
+        <div style={{ color: 'red', margin: '10px 0', padding: '10px', background: 'rgba(255,0,0,0.1)', borderRadius: '5px', wordBreak: 'break-all' }}>
+          <strong>Error Details:</strong> {errorMsg}
+        </div>
+      )}
       
       <button onClick={handleLogin} className={styles.googleButton}>
         <span className={styles.buttonContent}>

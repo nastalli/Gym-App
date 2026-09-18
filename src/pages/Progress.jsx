@@ -56,7 +56,7 @@ const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const Progress = () => {
   const { t } = useTranslation();
-  const { workoutData, weightHistory, measurementHistory, accentColor, dailyChecklist } = useAppContext();
+  const { workoutData, weightHistory, measurementHistory, accentColor, dailyChecklist, muscleGroups, exercisesByGroup } = useAppContext();
   const themeColor = accentColor || '#00ff88';
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -181,7 +181,6 @@ const Progress = () => {
 
   const radarData = useMemo(() => {
     if (!workoutData || workoutData.length === 0) return null;
-    const { muscleGroups, exercisesByGroup } = useAppContext();
     
     // Reverse map: exercise -> group
     const exToGroup = {};
@@ -218,7 +217,7 @@ const Progress = () => {
         },
       ],
     };
-  }, [workoutData, t, themeColor]);
+  }, [workoutData, t, themeColor, muscleGroups, exercisesByGroup]);
 
   const monthlyVolumeChartData = useMemo(() => {
     if (!workoutData || workoutData.length === 0) return null;
